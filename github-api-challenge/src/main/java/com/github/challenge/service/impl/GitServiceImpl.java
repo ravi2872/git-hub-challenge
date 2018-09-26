@@ -42,32 +42,24 @@ public class GitServiceImpl implements GitService {
 
 		int i = 0;
 		for (Follower follower : followerList) {
-			if (i == 4)
+			if (i == 3)
 				break;
-			addToMap(follower, map);
 			List<Follower> followers_2 = getFollowers(getUrl(follower.getLogin()));
+			map.put(follower.getLogin(), getSubList(followers_2));
 			if (CollectionUtils.isNotEmpty(followers_2)) {
 				int j = 0;
 				for (Follower follower2 : followers_2) {
-					if (j == 4)
+					if (j == 3)
 						break;
-					addToMap(follower2, map);
 					List<Follower> followers_3 = getFollowers(getUrl(follower2.getLogin()));
+					map.put(follower2.getLogin(), getSubList(followers_3));
 					if (CollectionUtils.isNotEmpty(followers_3)) {
 						int k = 0;
 						for (Follower follower3 : followers_3) {
-							if (k == 4)
+							if (k == 3)
 								break;
-							addToMap(follower3, map);
 							List<Follower> followers = getFollowers(getUrl(follower3.getLogin()));
-							if (CollectionUtils.isNotEmpty(followers)) {
-								if (followers.size() > 5) {
-									map.put(follower3.getLogin(), followers.subList(0, 4));
-								} else {
-									map.put(follower3.getLogin(), followers);
-								}
-
-							}
+							map.put(follower3.getLogin(), getSubList(followers));
 							k++;
 						}
 					}
@@ -79,20 +71,17 @@ public class GitServiceImpl implements GitService {
 		return map;
 	}
 
-	private void addToMap(Follower follower, Map<String, List<Follower>> map) {
-		List<Follower> list = map.get(follower.getLogin());
-		if (CollectionUtils.isEmpty(list)) {
-			map.put(follower.getLogin(), new ArrayList<>());
-			return;
+	public List<Follower> getSubList(List<Follower> fullList){
+		if (CollectionUtils.isEmpty(fullList)) {
+			return fullList;
 		}
-		List<Follower> myList = new ArrayList<>();
-		myList.addAll(list);
-		System.out.println("Before "+follower.getLogin() + ":"+map.get(follower.getLogin()));
-		myList.add(follower);
-		map.put(follower.getLogin(), myList);
-		System.out.println("After "+follower.getLogin() + ":"+map.get(follower.getLogin()));
+		
+		if (fullList.size() > 5) {
+			return fullList.subList(0, 5);
+		} else {
+			return fullList;
+		}
 	}
-
 	private String getUrl(String gitId) {
 		return MessageFormat.format(GIT_FOLLOWER_URL, gitId);
 	}
