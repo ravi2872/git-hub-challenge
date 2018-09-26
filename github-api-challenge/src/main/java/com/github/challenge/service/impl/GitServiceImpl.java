@@ -85,8 +85,11 @@ public class GitServiceImpl implements GitService {
 			map.put(follower.getLogin(), new ArrayList<>());
 			return;
 		}
+		List<Follower> myList = new ArrayList<>();
+		myList.addAll(list);
 		System.out.println("Before "+follower.getLogin() + ":"+map.get(follower.getLogin()));
-		list.add(follower);
+		myList.add(follower);
+		map.put(follower.getLogin(), myList);
 		System.out.println("After "+follower.getLogin() + ":"+map.get(follower.getLogin()));
 	}
 
