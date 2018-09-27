@@ -44,21 +44,21 @@ public class GitServiceImpl implements GitService {
 		for (Follower follower : followerList) {
 			if (i == 3)
 				break;
-			List<Follower> followers_2 = getFollowers(getUrl(follower.getLogin()));
+			List<Follower> followers_2 = getFollowers(follower.getFollowers_url());
 			map.put(follower.getLogin(), getSubList(followers_2));
 			if (CollectionUtils.isNotEmpty(followers_2)) {
 				int j = 0;
 				for (Follower follower2 : followers_2) {
 					if (j == 3)
 						break;
-					List<Follower> followers_3 = getFollowers(getUrl(follower2.getLogin()));
+					List<Follower> followers_3 = getFollowers(follower2.getFollowers_url());
 					map.put(follower2.getLogin(), getSubList(followers_3));
 					if (CollectionUtils.isNotEmpty(followers_3)) {
 						int k = 0;
 						for (Follower follower3 : followers_3) {
 							if (k == 3)
 								break;
-							List<Follower> followers = getFollowers(getUrl(follower3.getLogin()));
+							List<Follower> followers = getFollowers(follower3.getFollowers_url());
 							map.put(follower3.getLogin(), getSubList(followers));
 							k++;
 						}
