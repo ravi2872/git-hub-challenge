@@ -25,4 +25,10 @@ public class GitController {
 		Map<String, List<Follower>> followerList = gitService.retrieveGitFollowersById(gitId);
 		return ResponseEntity.ok(followerList);
 	}
+	
+	@GetMapping(path = "/{gitId}/getRepos", produces = "application/json")
+	public ResponseEntity<Map<String, List<String>>> getGitRepos(@PathVariable String gitId) {
+		Map<String, List<String>> followerList = gitService.retrieveGitReposById(gitId);
+		return ResponseEntity.ok(followerList);
+	}
 }

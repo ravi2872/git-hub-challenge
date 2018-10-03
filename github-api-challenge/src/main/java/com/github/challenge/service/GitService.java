@@ -7,4 +7,6 @@ import com.github.challenge.model.Follower;
 
 public interface GitService {
 	Map<String, List<Follower>> retrieveGitFollowersById(String gitId);
+
+	Map<String, List<String>> retrieveGitReposById(String gitId);
 }
